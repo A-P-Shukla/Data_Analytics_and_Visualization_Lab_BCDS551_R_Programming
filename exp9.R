@@ -1,0 +1,21 @@
+library(rvest) 
+library(h r) 
+library(jsonlite) 
+library(readr) 
+library(readxl) 
+url <- "h ps://quotes.toscrape.com" 
+page <- read_html(url) 
+quotes <- page %>% html_nodes(".text") %>% html_text() 
+authors <- page %>% html_nodes(".author") %>% html_text() 
+scraped_data <- data.frame(Quote = quotes, Author = authors) 
+print(scraped_data) 
+api_url <- "h ps://api.covid19api.com/summary" 
+response <- GET(api_url) 
+content <- content(response, "text", encoding = "UTF-8") 
+api_data <- fromJSON(content) 
+india_data <- api_data$Countries[api_data$Countries$Country == "India", ] 
+print(india_data) 
+csv_data <- read_csv("data.csv") 
+excel_data <- read_excel("data.xlsx") 
+print(csv_data) 
+print(excel_data) 
